@@ -1,0 +1,23 @@
+{
+  "name": "Math-Quest-Phaser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TraeBenn22/Math-Quest-Phaser.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TraeBenn22/Math-Quest-Phaser/issues"
+  },
+  "homepage": "https://github.com/TraeBenn22/Math-Quest-Phaser#readme",
+  "dependencies": {
+    "phaser": "^3.21.0"
+  }
+}
