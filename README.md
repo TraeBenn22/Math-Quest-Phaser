@@ -1,7 +1,4 @@
-# phaser3-electron [![dependencies status badge](https://david-dm.org/digitsensitive/phaser3-electron/status.svg?style=flat-square)](https://david-dm.org/digitsensitive/phaser3-electron) [![development dependencies status badge](https://david-dm.org/digitsensitive/phaser3-electron/dev-status.svg?style=flat-square)](https://david-dm.org/digitsensitive/phaser3-electron/?type=dev)
-Boilerplate for a Phaser 3 electron app
-
-
+# Math Quest [![dependencies status badge](https://david-dm.org/digitsensitive/phaser3-electron/status.svg?style=flat-square)](https://david-dm.org/digitsensitive/phaser3-electron) [![development dependencies status badge](https://david-dm.org/digitsensitive/phaser3-electron/dev-status.svg?style=flat-square)](https://david-dm.org/digitsensitive/phaser3-electron/?type=dev)
 ## Installation
 
 Navigate to destination folder and clone this repository.
