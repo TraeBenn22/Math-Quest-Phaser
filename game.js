@@ -1,9 +1,9 @@
-const Phaser = require("phaser")
+import Phaser from "phaser";
 
 var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    type: Phaser.CANVAS,
+    width: 1920,
+    height: 1080,
     id: "game",
     scene: {
         preload: preload,
@@ -12,18 +12,31 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
 function preload ()
 {
-    this.load.image('phaser', 'assets/boilerplate/phaser.png')
+    this.load.image('phaser', 'assets/boilerplate/phaser.png');
+    this.load.image('tiles', "assets/maps/roguelikeSheet_transparent.png");
+    this.load.tilemapTiledJSON('playground', 'assets/maps/playground.json');
 }
 
 function create ()
 {
-    this.add.image(300, 300, 'phaser')
+    const map = this.make.tilemap({key: 'playground'});
+    const tileset = map.addTilesetImage("roguelikeSheet_transparent", 'tiles');
+    const ground = map.createStaticLayer('Ground', tileset, 0, 0);
+    const ground2 = map.createStaticLayer('Ground2', tileset, 0, 0);
+    const decoration = map.createStaticLayer('Decoration', tileset, 0, 0);
+    const roof = map.createStaticLayer('Roof', tileset, 0, 0);
 }
 
 function update ()
 {
 }
+
+class Game extends Phaser.Game {
+    constructor() {
+        super(config)
+    }
+}
+
+window.game = new Game();
