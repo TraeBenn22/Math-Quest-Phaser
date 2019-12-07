@@ -6,6 +6,9 @@
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^2.0.0"
+    "electron": "^2.0.18"
+  },
+  "dependencies": {
+    "phaser": "^3.21.0"
   }
 }
