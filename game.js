@@ -1,4 +1,14 @@
 import Phaser from "phaser";
+ import {Player} from './src/player.js';
+
+const protaganist = new Player();
+
+class Game extends Phaser.Game {
+    constructor() {
+        super(config)
+    }
+}
+
 
 const config = {
     type: Phaser.CANVAS,
@@ -43,44 +53,10 @@ function create ()
     const roof = map.createStaticLayer('Roof', tileset, 0, 0);
     // const obstacles = map.createStaticLayer('Obstacles', tileset, 0, 0);
     // obstacles.setCollisionByExclusion([-1]);
+    protaganist.createAnimation(this);
+    // this.player.setCollideWorldBounds(true);
 
-    this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('player', {
-            frames: [1, 7, 1, 13]
-        }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('player', {
-            frames: [1, 7, 1, 13]
-        }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
-        key: 'up',
-        frames: this.anims.generateFrameNumbers('player', {
-            frames: [2, 8, 2, 14]
-        }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
-        key: 'down',
-        frames: this.anims.generateFrameNumbers('player', {
-            frames: [0, 6, 0, 12]
-        }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.player = this.physics.add.sprite(50, 100, 'player', 6);
+    protaganist.createSprite(this);
     this.physics.world.bounds.width = map.widthInPixels;
     this.physics.world.bounds.height = map.heightInPixels;
     this.player.setCollideWorldBounds(true);
@@ -92,39 +68,9 @@ function create ()
 //need to convert movement to switch statement
 function update ()
 {
-    this.player.body.setVelocity(0);
-
-    if (this.cursors.left.isDown) {
-        this.player.body.setVelocityX(-80);
-    } else if (this.cursors.right.isDown) {
-        this.player.body.setVelocityX(80);
-    }
-
-    if (this.cursors.up.isDown) {
-        this.player.body.setVelocityY(-80);
-    } else if (this.cursors.down.isDown) {
-        this.player.body.setVelocityY(80);
-    }
-    if (this.cursors.left.isDown) {
-        this.player.anims.play('left', true);
-        this.player.flipX = true;
-    } else if (this.cursors.right.isDown) {
-        this.player.anims.play('right', true);
-        this.player.flipX = false;
-    } else if (this.cursors.up.isDown) {
-        this.player.anims.play('up', true);
-    } else if (this.cursors.down.isDown) {
-        this.player.anims.play('down', true);
-    } else {
-        this.player.anims.stop();
-    }
+    protaganist.updateMovement(this);
 }
 
-class Game extends Phaser.Game {
-    constructor() {
-        super(config)
-    }
-}
 
  window.game = new Phaser.Game(config);
 
