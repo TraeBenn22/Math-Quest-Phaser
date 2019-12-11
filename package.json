@@ -1,23 +1,19 @@
 {
-  "name": "Math-Quest-Phaser",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "phaser3-electron",
+  "version": "0.1.0",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack && electron ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TraeBenn22/Math-Quest-Phaser.git"
+  "devDependencies": {
+    "electron": "^2.0.18"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TraeBenn22/Math-Quest-Phaser/issues"
-  },
-  "homepage": "https://github.com/TraeBenn22/Math-Quest-Phaser#readme",
   "dependencies": {
-    "phaser": "^3.21.0"
+    "@babel/core": "^7.7.5",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.7.2",
+    "phaser": "^3.21.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
