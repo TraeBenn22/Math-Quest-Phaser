@@ -1,13 +1,18 @@
-import Phaser from "phaser";
-
-
-
-
 export  class Player  {
     constructor() {
     }
 
     createAnimation(config) {
+
+        config.anims.create({
+            key: 'left',
+            frames: config.anims.generateFrameNumbers('player', {
+                frames: [1, 7, 1, 13]
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         config.anims.create({
             key: 'right',
             frames: config.anims.generateFrameNumbers('player', {
@@ -65,7 +70,6 @@ export  class Player  {
     }
 
     createSprite(config) {
-
         config.player = config.physics.add.sprite(50, 100, 'player', 6);
     }
 }
