@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import {Player} from './src/player.js';
 import {Enemy} from './src/enemies.js';
+import { Map } from "./src/map.js";
 
 const protaganist = new Player();
 const enemy = new Enemy();
@@ -26,7 +27,7 @@ class LoadScene extends Phaser.Scene {
         this.load.image('worm', 'assets/images/giant-worm.png');
         this.load.image('wolf', 'assets/images/wolf.png');
         this.load.image('phaser', 'assets/boilerplate/phaser.png');
-        this.load.image('tiles', "assets/maps/roguelikeSheet_transparent.png");
+        this.load.image('roguelikeSheet_transparent', "assets/maps/roguelikeSheet_transparent.png");
     }
 
     create() {
@@ -47,14 +48,7 @@ class GameScene extends Phaser.Scene {
         // createMap();
         // createPlayer();
         // createEnemies();
-        const map = this.make.tilemap({key: 'playground'});
-        const tileset = map.addTilesetImage("roguelikeSheet_transparent", 'tiles');
-        const ground = map.createStaticLayer('Ground', tileset, 0, 0);
-        const ground2 = map.createStaticLayer('Ground2', tileset, 0, 0);
-        const decoration = map.createStaticLayer('Decoration', tileset, 0, 0);
-        const roof = map.createStaticLayer('Roof', tileset, 0, 0);
-        // const obstacles = map.createStaticLayer('Obstacles', tileset, 0, 0);
-        // obstacles.setCollisionByExclusion([-1]);
+        const map = new Map("playground", "roguelikeSheet_transparent", this);
         protaganist.createAnimation(this);
         protaganist.createSprite(this);
         this.physics.world.bounds.width = map.widthInPixels;
@@ -65,6 +59,7 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.roundPixels = true;
         this.cursors = this.input.keyboard.createCursorKeys();
         enemy.createEnemies(this);
+        map.createCollider(this.player);
     }
     update() {
         protaganist.updateMovement(this);
