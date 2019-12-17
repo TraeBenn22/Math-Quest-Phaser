@@ -1,76 +1,80 @@
+import Phaser from 'phaser';
+
 export class Player {
-    constructor() {
+    constructor(Scene) {
+       this.phaser = Scene;
     }
 
-    createAnimation(config) {
+    createAnimation() {
+        console.log(this.phaser);
 
-        config.anims.create({
+        this.phaser.anims.create({
             key: 'left',
-            frames: config.anims.generateFrameNumbers('player', {
+            frames: this.phaser.anims.generateFrameNumbers('player', {
                 frames: [1, 7, 1, 13]
             }),
             frameRate: 10,
             repeat: -1
         });
 
-        config.anims.create({
+        this.phaser.anims.create({
             key: 'right',
-            frames: config.anims.generateFrameNumbers('player', {
+            frames: this.phaser.anims.generateFrameNumbers('player', {
                 frames: [1, 7, 1, 13]
             }),
             frameRate: 10,
             repeat: -1
         });
 
-        config.anims.create({
+        this.phaser.anims.create({
             key: 'up',
-            frames: config.anims.generateFrameNumbers('player', {
+            frames: this.phaser.anims.generateFrameNumbers('player', {
                 frames: [2, 8, 2, 14]
             }),
             frameRate: 10,
             repeat: -1
         });
 
-        config.anims.create({
+        this.phaser.anims.create({
             key: 'down',
-            frames: config.anims.generateFrameNumbers('player', {
+            frames: this.phaser.anims.generateFrameNumbers('player', {
                 frames: [0, 6, 0, 12]
             }),
             frameRate: 10,
             repeat: -1
         });
     }
-    updateMovement(config) {
-        config.player.body.setVelocity(0);
+    updateMovement() {
+        this.phaser.player.body.setVelocity(0);
 
-        if (config.cursors.left.isDown) {
-            config.player.body.setVelocityX(-80);
-        } else if (config.cursors.right.isDown) {
-            config.player.body.setVelocityX(80);
+        if (this.phaser.cursors.left.isDown) {
+            this.phaser.player.body.setVelocityX(-80);
+        } else if (this.phaser.cursors.right.isDown) {
+            this.phaser.player.body.setVelocityX(80);
         }
 
-        if (config.cursors.up.isDown) {
-            config.player.body.setVelocityY(-80);
-        } else if (config.cursors.down.isDown) {
-            config.player.body.setVelocityY(80);
+        if (this.phaser.cursors.up.isDown) {
+            this.phaser.player.body.setVelocityY(-80);
+        } else if (this.phaser.cursors.down.isDown) {
+            this.phaser.player.body.setVelocityY(80);
         }
-        if (config.cursors.left.isDown) {
-            config.player.anims.play('left', true);
-            config.player.flipX = true;
-        } else if (config.cursors.right.isDown) {
-            config.player.anims.play('right', true);
-            config.player.flipX = false;
-        } else if (config.cursors.up.isDown) {
-            config.player.anims.play('up', true);
-        } else if (config.cursors.down.isDown) {
-            config.player.anims.play('down', true);
+        if (this.phaser.cursors.left.isDown) {
+            this.phaser.player.anims.play('left', true);
+            this.phaser.player.flipX = true;
+        } else if (this.phaser.cursors.right.isDown) {
+            this.phaser.player.anims.play('right', true);
+            this.phaser.player.flipX = false;
+        } else if (this.phaser.cursors.up.isDown) {
+            this.phaser.player.anims.play('up', true);
+        } else if (this.phaser.cursors.down.isDown) {
+            this.phaser.player.anims.play('down', true);
         } else {
-            config.player.anims.stop();
+            this.phaser.player.anims.stop();
         }
     }
 
-    createSprite(config) {
-        config.player = config.physics.add.sprite(50, 100, 'player', 6);
+    createSprite() {
+        this.phaser.player = this.phaser.physics.add.sprite(50, 100, 'player', 6);
     }
 }
 
