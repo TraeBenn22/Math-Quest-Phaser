@@ -79,12 +79,5 @@ export class Player {
 
 
 
-// this.cameras.main.once('camerafadeincomplete', function (camera) {
-//
-//     camera.fadeOut(6000);
-//
-// });
-//
-// this.cameras.main.fadeIn(6000);
-// }
+
 
