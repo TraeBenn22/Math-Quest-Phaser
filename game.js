@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import {Player} from './src/player.js';
-import {Enemy} from './src/enemies.js';
+import {Enemies} from './src/enemies.js';
 import { Map } from "./src/map.js";
 
-const enemy = new Enemy();
+
 
 class LoadScene extends Phaser.Scene {
     constructor() {
@@ -46,18 +46,21 @@ class GameScene extends Phaser.Scene {
         // createMap();
         // createPlayer();
         // createEnemies();
+        const enemy = new Enemies(this, this.player);
         const protaganist = new Player(this);
         const map = new Map("playground", "roguelikeSheet_transparent", this);
         protaganist.createAnimation();
         protaganist.createSprite();
+        enemy.createCollision(this.player);
         this.physics.world.bounds.width = map.widthInPixels;
         this.physics.world.bounds.height = map.heightInPixels;
         this.player.setCollideWorldBounds(true);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player);
         this.cameras.main.roundPixels = true;
+        this.cameras.main.setZoom(5);
         this.cursors = this.input.keyboard.createCursorKeys();
-        enemy.createEnemies(this);
+        enemy.createEnemies();
         map.createCollider(this.player);
     }
     update() {

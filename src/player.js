@@ -6,7 +6,6 @@ export class Player {
     }
 
     createAnimation() {
-        console.log(this.phaser);
 
         this.phaser.anims.create({
             key: 'left',
@@ -77,4 +76,15 @@ export class Player {
         this.phaser.player = this.phaser.physics.add.sprite(50, 100, 'player', 6);
     }
 }
+
+
+
+// this.cameras.main.once('camerafadeincomplete', function (camera) {
+//
+//     camera.fadeOut(6000);
+//
+// });
+//
+// this.cameras.main.fadeIn(6000);
+// }
 
