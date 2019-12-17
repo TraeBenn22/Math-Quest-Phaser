@@ -1,18 +1,22 @@
-export class Enemy {
-    constructor() {
-
+export class Enemies {
+    constructor(Scene) {
+        this.phaser = Scene;
+        this.enemy = null;
+        this.enemies = [];
     }
 
-    createEnemies(config) {
-        config.spawns = config.physics.add.group({
+    createEnemies() {
+        this.phaser.spawns = this.phaser.physics.add.group({
             classType: Phaser.GameObjects.Sprite
         });
         for (let i = 0; i < 8; i++) {
-            const location = this.getValidLocation(config);
-            let enemy = config.spawns.create(location.x, location.y, this.getEnemySprite());
-            enemy.body.setCollideWorldBounds(true);
-            enemy.body.setImmovable();
+            const location = this.getValidLocation(this.phaser);
+            this.enemy = this.phaser.spawns.create(location.x, location.y, this.getEnemySprite());
+            this.enemy.body.setCollideWorldBounds(true);
+            this.enemy.body.setImmovable();
+            this.enemies.push(this.enemy);
         }
+        console.log(this.enemies);
 }
 
     getEnemySprite() {
@@ -39,6 +43,9 @@ export class Enemy {
         }
         return { x, y };
 
+    }
+    createCollision(player) {
+           this.phaser.physics.add.collider(player, this.enemies);
     }
 
 }
