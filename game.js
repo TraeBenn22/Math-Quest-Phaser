@@ -46,12 +46,11 @@ class GameScene extends Phaser.Scene {
         // createMap();
         // createPlayer();
         // createEnemies();
-        const enemy = new Enemies(this, this.player);
+        const enemy = new Enemies(this);
         const protaganist = new Player(this);
         const map = new Map("playground", "roguelikeSheet_transparent", this);
         protaganist.createAnimation();
         protaganist.createSprite();
-        enemy.createCollision(this.player);
         this.physics.world.bounds.width = map.widthInPixels;
         this.physics.world.bounds.height = map.heightInPixels;
         this.player.setCollideWorldBounds(true);
@@ -60,8 +59,9 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.roundPixels = true;
         this.cameras.main.setZoom(5);
         this.cursors = this.input.keyboard.createCursorKeys();
-        enemy.createEnemies();
-        map.createCollider(this.player);
+        enemy.createEnemies(this.player);
+         map.createCollider(this.player);
+
     }
     update() {
         const protaganist = new Player(this);

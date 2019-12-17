@@ -1,26 +1,29 @@
 export class Enemies {
     constructor(Scene) {
         this.phaser = Scene;
-        this.enemy = null;
-        this.enemies = [];
+        this.enemies = new Map();
+
     }
 
-    createEnemies() {
+    createEnemies(player) {
         this.phaser.spawns = this.phaser.physics.add.group({
             classType: Phaser.GameObjects.Sprite
         });
-        for (let i = 0; i < 8; i++) {
+
+        for (let i = 0; i < 10; i++) {
+    let randomEnemies = this.getEnemySprite();
             const location = this.getValidLocation(this.phaser);
-            this.enemy = this.phaser.spawns.create(location.x, location.y, this.getEnemySprite());
-            this.enemy.body.setCollideWorldBounds(true);
-            this.enemy.body.setImmovable();
-            this.enemies.push(this.enemy);
+            let enemy = this.phaser.spawns.create(location.x, location.y, randomEnemies);
+            enemy.body.setCollideWorldBounds(true);
+            enemy.body.setImmovable();
+            this.enemies.set(randomEnemies, 'enemy ' + randomEnemies);
+            this.phaser.physics.add.collider(enemy, player, this.battleCollision)
         }
-        console.log(this.enemies);
+
+
 }
 
     getEnemySprite() {
-
         let sprites = ['golem', 'ent', 'demon', 'worm', 'wolf'];
         return sprites[Math.floor(Math.random() * sprites.length)];
     }
@@ -44,8 +47,16 @@ export class Enemies {
         return { x, y };
 
     }
-    createCollision(player) {
-           this.phaser.physics.add.collider(player, this.enemies);
+
+    battleCollision() {
+        alert('ENTERING BATTLE!');
+        // this.phaser.cameras.main.once('camerafadeincomplete', function (camera) {
+        //
+        //     camera.fadeOut(6000);
+        //
+        // });
+        //
+        // this.phaser.cameras.main.fadeIn(6000);
     }
 
 }
