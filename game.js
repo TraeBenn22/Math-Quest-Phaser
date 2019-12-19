@@ -25,6 +25,8 @@ class LoadScene extends Phaser.Scene {
         this.load.image('roguelikeSheet_transparent', "assets/maps/roguelikeSheet_transparent.png");
         this.load.image('titleImage','assets/images/MainMenuImage.png');
         this.load.audio('title', 'assets/audio/NomenEstOmen_4NobodysJig.mp3');
+        this.load.image('startButton', 'assets/images/button_start-game.png');
+        this.load.image('optionsButton', 'assets/images/button_options.png');
     }
 
     create() {
@@ -38,12 +40,14 @@ class LoadScene extends Phaser.Scene {
             })
         }
         create() {
-            this.add.image(500, 500, 'titleImage');
+            const horizontalCenter = this.centerX=game.config.width/2;
+            const verticalCenter = this.centerX=game.config.height/2;
+            this.add.image(horizontalCenter, verticalCenter, 'titleImage');
             const menuEmitter = new Phaser.Events.EventEmitter();
             menuEmitter.on('click', this.startGame, this);
-            const startButton = this.add.text(470, 465, 'Start Game', { fill: '#0f0'});
-            const optionsButton = this.add.text(485, 485, 'Options', {fill: '#0f0'});
-            startButton.setInteractive();
+            const startButton = this.add.image(horizontalCenter, verticalCenter, 'startButton').setInteractive();
+            const optionsButton = this.add.image(horizontalCenter, verticalCenter + 50, 'optionsButton').setInteractive();
+
             startButton.on('pointerup', () => {this.startGame()});
             const music = this.sound.add('title');
             music.play();
