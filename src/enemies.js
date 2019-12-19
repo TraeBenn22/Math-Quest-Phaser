@@ -1,3 +1,6 @@
+import { BattleScene } from './battleScene.js';
+
+
 export class Enemies {
     constructor(Scene) {
         this.phaser = Scene;
@@ -48,15 +51,12 @@ export class Enemies {
 
     }
 
+    spawnBattleEnemy(x, y) {
+        return  this.phaser.spawns.create(x, y, this.getEnemySprite());
+    }
+
     battleCollision() {
-        alert('ENTERING BATTLE!');
-        // this.phaser.cameras.main.once('camerafadeincomplete', function (camera) {
-        //
-        //     camera.fadeOut(6000);
-        //
-        // });
-        //
-        // this.phaser.cameras.main.fadeIn(6000);
+        BattleScene();
     }
 
 }

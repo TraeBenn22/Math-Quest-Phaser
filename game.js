@@ -1,9 +1,6 @@
 import Phaser from "phaser";
-import {Player} from './src/player.js';
-import {Enemies} from './src/enemies.js';
-import { Map } from "./src/map.js";
-
-
+import {GameScene} from './src/world';
+import {BattleScene} from "./src/battleScene";
 
 class LoadScene extends Phaser.Scene {
     constructor() {
@@ -18,7 +15,6 @@ class LoadScene extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 16
         });
-
         this.load.tilemapTiledJSON('playground', 'assets/maps/playground.json');
         this.load.image('golem', 'assets/images/coppergolem.png');
         this.load.image('ent', 'assets/images/dark-ent.png');
@@ -27,48 +23,38 @@ class LoadScene extends Phaser.Scene {
         this.load.image('wolf', 'assets/images/wolf.png');
         this.load.image('phaser', 'assets/boilerplate/phaser.png');
         this.load.image('roguelikeSheet_transparent', "assets/maps/roguelikeSheet_transparent.png");
+        this.load.image('titleImage','assets/images/MainMenuImage.png');
+        this.load.audio('title', 'assets/audio/NomenEstOmen_4NobodysJig.mp3');
     }
 
     create() {
-        this.scene.start('GameScene');
+        this.scene.start('MainMenuScene');
     }
 }
+    class MainMenuScene extends Phaser.Scene {
+        constructor() {
+            super({
+                key: 'MainMenuScene'
+            })
+        }
+        create() {
+            this.add.image(500, 500, 'titleImage');
+            const menuEmitter = new Phaser.Events.EventEmitter();
+            menuEmitter.on('click', this.startGame, this);
+            const startButton = this.add.text(470, 465, 'Start Game', { fill: '#0f0'});
+            const optionsButton = this.add.text(485, 485, 'Options', {fill: '#0f0'});
+            startButton.setInteractive();
+            startButton.on('pointerup', () => {this.startGame()});
+            const music = this.sound.add('title');
+            music.play();
 
-class GameScene extends Phaser.Scene {
-    constructor() {
-        super({
-            key: 'GameScene'
-        });
-    }
+        }
 
-    create() {
-        //preferable to move everything here into their own functions//
-        // createMap();
-        // createPlayer();
-        // createEnemies();
-        const enemy = new Enemies(this);
-        const protaganist = new Player(this);
-        const map = new Map("playground", "roguelikeSheet_transparent", this);
-        protaganist.createAnimation();
-        protaganist.createSprite();
-        this.physics.world.bounds.width = map.widthInPixels;
-        this.physics.world.bounds.height = map.heightInPixels;
-        this.player.setCollideWorldBounds(true);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cameras.main.startFollow(this.player);
-        this.cameras.main.roundPixels = true;
-        this.cameras.main.setZoom(5);
-        this.cursors = this.input.keyboard.createCursorKeys();
-        enemy.createEnemies(this.player);
-         map.createCollider(this.player);
-
-    }
-    update() {
-        const protaganist = new Player(this);
-        protaganist.updateMovement();
-    }
-
+        startGame() {
+            this.scene.start('GameScene');
+        }
 }
+
 
 
 
@@ -89,7 +75,9 @@ const config = {
     },
     scene: [
         LoadScene,
-        GameScene
+        MainMenuScene,
+        GameScene,
+        BattleScene,
     ]
 };
 
