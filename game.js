@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import {GameScene} from './src/world';
 import {BattleScene} from "./src/battleScene";
+import {StartMenu} from './src/startMenu';
 
 class LoadScene extends Phaser.Scene {
     constructor() {
@@ -30,33 +31,8 @@ class LoadScene extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('MainMenuScene');
+        this.scene.start('StartMenu');
     }
-}
-    class MainMenuScene extends Phaser.Scene {
-        constructor() {
-            super({
-                key: 'MainMenuScene'
-            })
-        }
-        create() {
-            const horizontalCenter = this.centerX=game.config.width/2;
-            const verticalCenter = this.centerX=game.config.height/2;
-            this.add.image(horizontalCenter, verticalCenter, 'titleImage');
-            const menuEmitter = new Phaser.Events.EventEmitter();
-            menuEmitter.on('click', this.startGame, this);
-            const startButton = this.add.image(horizontalCenter, verticalCenter, 'startButton').setInteractive();
-            const optionsButton = this.add.image(horizontalCenter, verticalCenter + 50, 'optionsButton').setInteractive();
-
-            startButton.on('pointerup', () => {this.startGame()});
-            const music = this.sound.add('title');
-            music.play();
-
-        }
-
-        startGame() {
-            this.scene.start('GameScene');
-        }
 }
 
 
@@ -79,7 +55,7 @@ const config = {
     },
     scene: [
         LoadScene,
-        MainMenuScene,
+        StartMenu,
         GameScene,
         BattleScene,
     ]
