@@ -1,4 +1,4 @@
-import {BattleScene} from './battleScene';
+// import {BattleScene} from './battleScene';
 
 export class Player {
     constructor(Scene) {
@@ -47,33 +47,25 @@ export class Player {
         this.phaser.player.body.setVelocity(0);
 
         if (this.phaser.cursors.left.isDown) {
-            this.randomEncounter();
             this.phaser.player.body.setVelocityX(-80);
         } else if (this.phaser.cursors.right.isDown) {
-            this.randomEncounter();
             this.phaser.player.body.setVelocityX(80);
         }
 
         if (this.phaser.cursors.up.isDown) {
-            this.randomEncounter();
             this.phaser.player.body.setVelocityY(-80);
         } else if (this.phaser.cursors.down.isDown) {
-            this.randomEncounter();
             this.phaser.player.body.setVelocityY(80);
         }
         if (this.phaser.cursors.left.isDown) {
-            this.randomEncounter();
             this.phaser.player.anims.play('left', true);
             this.phaser.player.flipX = true;
         } else if (this.phaser.cursors.right.isDown) {
-            this.randomEncounter();
             this.phaser.player.anims.play('right', true);
             this.phaser.player.flipX = false;
         } else if (this.phaser.cursors.up.isDown) {
-            this.randomEncounter();
             this.phaser.player.anims.play('up', true);
         } else if (this.phaser.cursors.down.isDown) {
-            this.randomEncounter();
             this.phaser.player.anims.play('down', true);
         } else {
             this.phaser.player.anims.stop();
@@ -84,12 +76,12 @@ export class Player {
         this.phaser.player = this.phaser.physics.add.sprite(x || 50, y || 100, 'player', 6);
     }
 
-    randomEncounter() {
-        if(Math.floor(Math.random()*20+1) < 1) {
-            console.log('trigger');
-            Phaser.Scene.call(BattleScene);
-        }
-    }
+    // randomEncounter() {
+    //     if(Math.floor(Math.random()*20+1) < 1) {
+    //         console.log('trigger');
+    //         Phaser.Scene.call(BattleScene);
+    //     }
+    // }
 }
 
 

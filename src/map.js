@@ -26,7 +26,7 @@ export class Map {
         this.map.layers.forEach((layer, index) => {
             if (layer.properties[0].value) {
                 this.layers.push(this.map.createStaticLayer(layer.name, this.tileset, 0, 0).setCollisionByProperty({collides: true}));
-                if (layer.name == "Roof") {
+                if (layer.name === "Roof") {
                     this.layers[index].setDepth(10);
                 }
             } else {

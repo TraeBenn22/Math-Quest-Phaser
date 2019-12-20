@@ -6,35 +6,41 @@ import {Map} from "./map";
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
-            key: 'GameScene'
+            key: 'GameScene',
+
         });
+        this.enemies = new Enemies(this);
+        this.protag = new Player(this);
     }
 
     create() {
-        //preferable to move everything here into their own functions//
-        // createMap();
-        // createPlayer();
-        // createEnemies();
-        const enemy = new Enemies(this);
-        const protaganist = new Player(this);
         const map = new Map("playground", "roguelikeSheet_transparent", this);
-        protaganist.createAnimation();
-        protaganist.createSprite();
+        this.protag.createAnimation();
+        this.protag.createSprite();
         this.physics.world.bounds.width = map.widthInPixels;
         this.physics.world.bounds.height = map.heightInPixels;
         this.player.setCollideWorldBounds(true);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player);
         this.cameras.main.roundPixels = true;
-        this.cameras.main.setZoom(5);
+        // this.cameras.main.setZoom(5);
         this.cursors = this.input.keyboard.createCursorKeys();
-        enemy.createEnemies(this.player);
+        this.enemies.createEnemies(this.protag);
         map.createCollider(this.player);
+        this.enemies.movetoTarget();
+
+        let timedEvent = this.time.addEvent({
+            delay: 5000,
+            callback: this.enemies.movetoTarget,
+            callbackScope: this.enemies,
+            repeat: -1,
+        });
 
     }
     update() {
-        const protaganist = new Player(this);
-        protaganist.updateMovement();
+        this.protag.updateMovement();
+
+
     }
 
 }
