@@ -1,15 +1,14 @@
 import { BattleScene } from './battleScene.js';
-
-
+import {Player} from "./player";
 
 export class Enemies {
-    constructor(Scene) {
+    constructor(Scene, player) {
         this.phaser = Scene;
+        this.player = player;
         this.enemies = [];
-
     }
 
-    createEnemies(player) {
+    createEnemies() {
         this.phaser.spawns = this.phaser.physics.add.group({
             classType: Phaser.GameObjects.Sprite
         });
@@ -20,13 +19,10 @@ export class Enemies {
             let enemy = this.phaser.spawns.create(location.x, location.y, randomEnemies);
             enemy.body.setCollideWorldBounds(true);
             enemy.body.setImmovable();
-
             this.enemies.push(enemy);
-
-            this.phaser.physics.add.collider(enemy, player)
+            this.phaser.physics.add.collider(enemy, this.player)
 
         }
-        console.log(this.enemies);
 
 
 }
@@ -71,15 +67,30 @@ export class Enemies {
     }
 
 
-    movetoTarget(player) {
+    movetoTarget() {
+        // console.log(this.player);
+        // console.log(this.enemies);
            this.enemies.forEach( enemy => {
-               // if(player) {
-               //
-               // }
-               let randomLocation = this.getTargetLocation();
-               this.phaser.physics.accelerateTo(enemy, randomLocation.x, randomLocation.y, 10, 10, 10);
+               let searchResults = this.phaser.physics.overlapCirc(enemy.x, enemy.y, 100);
+               if(this.checkForPlayer(searchResults) === true) {
+                   console.log(this.checkForPlayer(searchResults));
+                   this.phaser.physics.accelerateTo(enemy, this.player.x, this.player.y, 40, 40, 40);
+               } else {
+                   let randomLocation = this.getTargetLocation();
+                   this.phaser.physics.accelerateTo(enemy, randomLocation.x, randomLocation.y, 20, 20, 20);
+               }
+
            });
 
+    }
+
+    checkForPlayer(array) {
+        array.forEach(index => {
+            if(index.gameObject.texture.key === 'player') {
+                console.log(index.gameObject.texture.key);
+                return true;
+            }
+        })
     }
 
     // timedEvent = this.phaser.time.addEvent({

@@ -9,7 +9,7 @@ export class GameScene extends Phaser.Scene {
             key: 'GameScene',
 
         });
-        this.enemies = new Enemies(this);
+        this.enemies = new Enemies(this, this.player);
         this.protaganist = new Player(this);
     }
 
@@ -25,10 +25,9 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.roundPixels = true;
         // this.cameras.main.setZoom(5);
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.enemies.createEnemies(this.protaganist);
+        this.enemies.createEnemies(this.player);
         map.createCollider(this.player);
         this.enemies.movetoTarget();
-        console.log(this.protaganist);
 
         let timedEvent = this.time.addEvent({
             delay: 5000,
@@ -39,7 +38,7 @@ export class GameScene extends Phaser.Scene {
 
     }
     update() {
-        this.protag.updateMovement();
+        this.protaganist.updateMovement();
 
 
     }
