@@ -2,7 +2,6 @@ import Phaser from "phaser";
 import {GameScene} from './src/world';
 // import {BattleScene} from "./src/battleScene";
 import {StartMenu} from './src/startMenu';
-import MoveToPlugin from './plugins/moveto-plugin.js';
 
 class LoadScene extends Phaser.Scene {
     constructor() {
