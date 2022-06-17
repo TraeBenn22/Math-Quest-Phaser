@@ -6,7 +6,7 @@
     "start": "webpack && electron ."
   },
   "devDependencies": {
-    "electron": "^2.0.18"
+    "electron": "^15.5.5"
   },
   "dependencies": {
     "@babel/core": "^7.7.5",
